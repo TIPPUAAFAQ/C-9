@@ -1,0 +1,129 @@
+var background1=createSprite(340,0);
+background1.setAnimation("2");
+var background1=createSprite(0,400);
+background1.setAnimation("1");
+
+var background2=createSprite(400,400);
+background2.setAnimation("3");
+var lives = 4;
+
+var gameState = "serve ";
+
+
+var p=createSprite(195,10,0,0);
+p.setAnimation("p");
+p.scale='.1';
+
+var a = createSprite(36,115,40,40);
+a.setAnimation("s1");
+a.scale=0.3;
+
+var b=createSprite(200,290,20,20) ;
+b.setAnimation("f");
+b.scale=0.4;
+
+var c=createSprite(319,200,20,20);
+c.setAnimation("s");
+c.scale=0.4;
+
+var d=createSprite(200,389);
+d.setAnimation("sh");
+d.scale='.2';
+
+var e=createSprite(345,359);
+e.setAnimation("p1");
+e.scale='.2';
+
+var f=createSprite(45,359);
+f.setAnimation("p2");
+f.scale='.2';
+
+var g=createSprite(88,379);
+g.setAnimation("p3");
+g.scale='.1';
+
+var h=createSprite(300,389);
+h.setAnimation("p4");
+h.scale='.1';
+
+
+  function draw() {
+  background("cyan");
+  
+  
+// if(keyDown("enter")){
+  //
+//}//
+
+textSize(20);
+fill("red");
+text("lives"+"="+lives, 30, 40);
+
+  
+    
+  createEdgeSprites();
+  
+  a.bounceOff(edges);
+  b.bounceOff(edges);
+  c.bounceOff(edges);
+  p.bounceOff(edges);
+  p.collide(d);
+  if(keyDown(UP_ARROW)){
+  p.y=p.y-3;
+  }
+
+if(keyDown(DOWN_ARROW)){
+  p.y=p.y+3;
+}
+
+if(keyDown(LEFT_ARROW)){
+  p.x=p.x-3;
+}
+
+if(keyDown(RIGHT_ARROW)){
+  p.x=p.x+3;
+}
+
+
+if(gameState==="serve ")
+{
+      textSize(28);
+      fill ("green");
+      text("Press Space to Start",80,180 );
+      text("Try to touch green shell",80,240);
+      if (keyDown("space")) {
+         a.velocityX=2;
+         b.velocityX=2;  
+         c.velocityX=2;
+         gameState="play";
+      }
+}
+
+if(gameState==="play"){
+  
+if(p.isTouching(a)||p.isTouching(b)|| p.isTouching(c)){
+ 
+ lives=lives-1; 
+ playSound("sound://category_bell/long_bell_notification.mp3",false);
+ p.x=201;
+ p.y=20;
+
+  gameState=="end";
+}  
+} 
+
+if(gameState=="end"){}
+if(p.isTouching(d)){
+  playSound("sound://default.mp3", false);
+    textSize(40);
+ fill("gold");
+ textFont("inspect");
+ text("U WON", 120, 200);
+ a.velocityX=0;
+ c.x=66;
+ b.velocityX=0;
+ c.velocityX=0;
+  }
+  
+  drawSprites();
+  }
